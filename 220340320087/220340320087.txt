@@ -1,0 +1,85 @@
+Section - I
+
+Q1. create table DEPT (
+DEPTNO int(2),
+DNAME varchar(15),
+LOC varchar(10)
+);
+
+insert into DEPT values
+(10,'ACCOUNTING','NEW YORK'),
+(20,'RESEARCH','DALLAS'),
+(30,'SALES','CHICAGO'),
+(40,'OPERATIONS','BOSTON');
+
+
+Q2. create table EMP(
+EMPNO int(4),
+ENAME varchar(10),
+JOB varchar(9),
+HIREDATE date,
+SAL float(7,2),
+COMM float(7,2),
+DEPTNO int(2)
+);
+
+insert into EMP values
+(7839,'KING','MANAGER','1991-11-17',5000,NULL,10),
+(7698,'BLAKE','CLERK','1981-05-01',2850,NULL,30),
+ (7782,'CLARK','MANAGER','1981-06-09',2450,NULL,10),
+ (7566,'JONES','CLERK','1981-04-02',2975,NULL,20),
+ (7654,'MARTIN','SALESMAN','1981-09-28',1250,1400,30),
+ (7499,'ALLEN','SALESMAN','1981-02-20',1600,300,30);
+
+Q3. select * from emp where sal between 2500 and 5000; 
+
+Q4. select ENAME from EMP
+ order by ENAME desc; 
+
+Q5. select lower(JOB) from emp;
+
+Q6. select ENAME,length(ENAME) from emp;
+
+Q7. select DEPTNO,count(*) from emp group by DEPTNO;
+
+Q8. select DEPT.DNAME,EMP.ENAME from DEPT,EMP 
+where DEPT.DEPTNO = EMP.DEPTNO;
+
+Q9. select ENAME,position('AR' in ENAME) as First_Occ_AR from EMP ; 
+
+Q10.  select ENAME,sal*0.20 "HRA" from emp;  
+
+SECTION - II
+
+Q1. delimiter //
+	create procedure PROC1(str1 varchar(20), str2 varchar(20))
+	begin
+	if INSTR(str2,str1)>0 then 
+		insert into TEMPP values ('String1 exists inside String2');
+	else 
+		insert into TEMPP values('String1 does not exist in String2');
+	end if;
+	end; //
+	delimiter ;
+
+	call PROC1('DAC','CDAC');
+	create table TEMPP(
+	result varchar(50)
+	);
+	select * from TEMPP;
+
+
+Q2.delimiter //
+	create function FUNC1(side1 int,side2 int,side3 int)
+	returns boolean
+	deterministic
+	begin
+	if side1<(side2+side3) and side3<(side1+side2) then 
+	return true ;
+	else
+	return false ;
+	end if;
+	end; //
+	delimiter ;
+
+select FUNC1(5,6,7) from dual;
